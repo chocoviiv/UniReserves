@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "579933405172",
+    "project_id": "reservasunc",
+    "storage_bucket": "reservasunc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:579933405172:android:479d6804b1d741f5dc03a1",
+        "android_client_info": {
+          "package_name": "com.example.proyectofinal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDu06oGoevnihp19p8HANkdVuFW4l_zkt8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
