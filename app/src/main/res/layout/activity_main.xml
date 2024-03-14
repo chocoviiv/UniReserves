@@ -29,7 +29,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/red"
-            android:text="General" />
+            android:isScrollContainer="false"
+            android:text="General"
+            app:icon="@drawable/baseline_house_24" />
 
         <Button
             android:id="@+id/b_eventos"
