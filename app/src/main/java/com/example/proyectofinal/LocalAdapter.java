@@ -70,7 +70,8 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.ViewHolder> 
         holder.tvPrecio.setText("S/. " + local.getPrecio());
         holder.tvDisponibilidad.setText(local.getDisponibildiad());
         holder.tvUbicacion.setText(local.getUbicacion());
-        holder.ivLocal.setImageResource(DecodificarBytesToInt(local.getImagen()));
+        Bitmap bitmap = BitmapFactory.decodeByteArray(local.getImagen(), 0, local.getImagen().length);
+        holder.ivLocal.setImageBitmap(bitmap);
 
         holder.bReservar.setOnClickListener(new View.OnClickListener() {
             @Override

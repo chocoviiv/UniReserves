@@ -14,9 +14,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- Incluye tu toolbar -->
         <include
-            layout="@layout/toolbar"/>
+            layout="@layout/activity_toolbar"/>
 
         <!-- Contenedor de contenido principal -->
         <androidx.constraintlayout.widget.ConstraintLayout
