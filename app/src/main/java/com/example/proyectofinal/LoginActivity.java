@@ -64,15 +64,18 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     // Inicio de sesión exitoso
-                    finish();
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    Toast.makeText(LoginActivity.this, "Bienvenido", Toast.LENGTH_SHORT).show();
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    if (user != null) {
+                        String id = user.getUid(); // Obtén el UID del usuario
+                        finish();
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        Toast.makeText(LoginActivity.this, "Bienvenido", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         }).addOnFailureListener(e -> {
             Toast.makeText(LoginActivity.this, "Error al iniciar Sesión", Toast.LENGTH_SHORT).show();
         });
-
     }
 
 

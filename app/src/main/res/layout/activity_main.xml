@@ -45,7 +45,7 @@
                     android:id="@+id/b_eventos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Eventos"
+                    android:text="Deportes"
                     android:backgroundTint="@color/red"/>
 
                 <Button
@@ -59,7 +59,7 @@
                     android:id="@+id/b_deportes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Deportes"
+                    android:text="Eventos"
                     android:backgroundTint="@color/red"/>
             </LinearLayout>
 

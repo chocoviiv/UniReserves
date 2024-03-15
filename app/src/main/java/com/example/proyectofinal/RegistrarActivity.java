@@ -24,12 +24,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Modelo.Cliente;
+import VistaModelo.VMCliente;
 
 public class RegistrarActivity extends AppCompatActivity {
     EditText etNombres, etApellidos, etCelular, etDni, etDireccion, etCorreo, etContraseña;
     Button bRegistrar, bIrInicio;
     FirebaseAuth mAuth;
     FirebaseFirestore firebaseFirestore;
+
+    VMCliente vmCliente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +63,6 @@ public class RegistrarActivity extends AppCompatActivity {
             Intent intent = new Intent(RegistrarActivity.this, MainActivity.class);
             startActivity(intent);
         });
-
     }
 
     private void RegistrarUsuario() {
@@ -70,6 +72,7 @@ public class RegistrarActivity extends AppCompatActivity {
         String dni = etDni.getText().toString();
         String direccion = etDireccion.getText().toString();
         String correo = etCorreo.getText().toString().trim();
+        String tipo = esUnc(correo);
         String contraseña = etContraseña.getText().toString().trim();
         if (nombres.isEmpty() || apellidos.isEmpty() || celular.isEmpty() || dni.isEmpty() || direccion.isEmpty() || correo.isEmpty() || contraseña.isEmpty()) {
             Toast.makeText(this, "Llene todos los campos", Toast.LENGTH_SHORT).show();
@@ -88,20 +91,27 @@ public class RegistrarActivity extends AppCompatActivity {
                             map.put("celular", celular);
                             map.put("dni", dni);
                             map.put("direccion", direccion);
+                            map.put("tipo", tipo);
+                            map.put("correo", correo);
                             map.put("contraseña", contraseña);
 
                             firebaseFirestore.collection("Usuario").document(id).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
-                                    Log.d("RegistrarActivity", "Usuario registrado con éxito en Firestore");
                                     finish();
-                                    startActivity(new Intent(RegistrarActivity.this, MainActivity.class));
-                                    Toast.makeText(RegistrarActivity.this, "Usuario registrado con éxito", Toast.LENGTH_SHORT).show();
+                                    Cliente cliente = new Cliente(nombres, apellidos, celular, dni, direccion, correo, contraseña);
+                                    vmCliente = new VMCliente();
+                                    if (vmCliente.AgregarCliente(RegistrarActivity.this, cliente)) {
+                                        startActivity(new Intent(RegistrarActivity.this, MainActivity.class));
+                                        Toast.makeText(RegistrarActivity.this, "Usuario registrado con éxito", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(RegistrarActivity.this, "Error al registrar en SQLite", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.e("RegistrarActivity", "Error al registrar en Firestore", e);
                                     Toast.makeText(RegistrarActivity.this, "Error al registrar en Firestore", Toast.LENGTH_SHORT).show();
                                 }
                             });
@@ -116,8 +126,13 @@ public class RegistrarActivity extends AppCompatActivity {
                     Toast.makeText(RegistrarActivity.this, "Error al registrar en Firebase Authentication", Toast.LENGTH_SHORT).show();
                 }
             });
-
         }
     }
 
+    public String esUnc(String correo) {
+        if (correo.matches(".*@unc\\.edu\\.pe")) {
+            return "Miembro de la UNC";
+        }
+        return "Externo a UNC";
+    }
 }

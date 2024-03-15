@@ -19,6 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 
 import Modelo.Local;
@@ -32,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayAdapter<String> adapter;
     LocalAdapter localAdapter;
-
+    FirebaseAuth auth;
+    FirebaseUser user;
     DrawerLayout drawerLayout;
     ImageView menu;
     LinearLayout home, settings, share,about,logout;
@@ -88,7 +92,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Logout", Toast.LENGTH_SHORT).show();
             }
         });
-
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
         vmLocal = new VMLocal(this);
 
 
@@ -100,7 +105,11 @@ public class MainActivity extends AppCompatActivity {
         bDeportes = findViewById(R.id.b_deportes);
         bGeneral = findViewById(R.id.b_general);
         rvLocales = findViewById(R.id.rv_locales);
-
+        if (inicioSesion()) {
+            bPerfil.setText("Perfil");
+        } else {
+            bPerfil.setText("Login");
+        }
         spLocales = findViewById(R.id.sp_locales);
         adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, vmLocal.formatoCadenaLocales());
         spLocales.setAdapter(adapter);
@@ -169,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
             public void OnLocalClick(Local local, int llamada) {
                 if (llamada == 1) {
                     Intent intent = new Intent(MainActivity.this, ReservarActivity.class);
+                    intent.putExtra("local", local);
                     startActivity(intent);
                 }
             }
@@ -178,14 +188,31 @@ public class MainActivity extends AppCompatActivity {
 
 
         bReservas.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, ReservasActivity.class);
-            startActivity(intent);
+            Intent intent;
+            if (inicioSesion()) {
+                intent = new Intent(MainActivity.this, ReservasActivity.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "Para ver sus reservar, inicie sesión.", Toast.LENGTH_SHORT).show();
+            }
         });
 
         bPerfil.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, PerfilActivity.class);
+            Intent intent;
+            if (inicioSesion()) {
+                intent = new Intent(MainActivity.this, PerfilActivity.class);
+            } else {
+                intent = new Intent(MainActivity.this, LoginActivity.class);
+            }
             startActivity(intent);
         });
+    }
+
+    public boolean inicioSesion() {
+        if (user != null) {
+            return true;
+        }
+        return false;
     }
     public static void openDrawer(DrawerLayout drawerLayout){
         drawerLayout.openDrawer(GravityCompat.START);
