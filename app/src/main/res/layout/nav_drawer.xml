@@ -13,10 +13,11 @@
         android:padding="16dp"
         android:background="@drawable/header_bkg"
         android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="135dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/logoreserva"/>
+            android:src="@drawable/logoreserva" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/blue"
-        android:text="Home"
+        android:text="Inicio"
         android:textSize="20sp"
         android:drawableLeft="@drawable/baseline_home_24"
         android:drawablePadding="8dp"/>
@@ -62,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/blue"
-            android:text="Settings"
+            android:text="Configuraciones"
             android:textSize="20sp"
             android:drawableLeft="@drawable/baseline_settings_24"
             android:drawablePadding="8dp"/>
@@ -78,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/blue"
-            android:text="share"
+            android:text="Compartir"
             android:textSize="20sp"
             android:drawableLeft="@drawable/baseline_share_24"
             android:drawablePadding="8dp"/>
@@ -115,7 +116,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/blue"
-            android:text="Logout"
+            android:text="Salir"
             android:textSize="20sp"
             android:drawableLeft="@drawable/baseline_exit_to_app_24"
             android:drawablePadding="8dp"/>
