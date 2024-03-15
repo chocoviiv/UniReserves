@@ -1,6 +1,7 @@
 package com.example.proyectofinal;
 
-import androidx.appcompat.app.AppCompatActivity;
+import
+        androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -16,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -27,7 +29,8 @@ import java.util.ArrayList;
 import Modelo.Local;
 import VistaModelo.VMLocal;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+    private SearchView svSearch;
     Button binicio, bReservas, bPerfil, bEventos, bConferencias, bDeportes, bGeneral;
     Spinner spLocales;
     public VMLocal vmLocal;
@@ -56,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
         logout=findViewById(R.id.logout);
         settings=findViewById(R.id.settings);
         share=findViewById(R.id.share);
+        svSearch= findViewById(R.id.svSearch);
+        svSearch.setOnQueryTextListener(this);
+        vmLocal = new VMLocal(this);
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,6 +111,9 @@ public class MainActivity extends AppCompatActivity {
         bDeportes = findViewById(R.id.b_deportes);
         bGeneral = findViewById(R.id.b_general);
         rvLocales = findViewById(R.id.rv_locales);
+        svSearch= findViewById(R.id.svSearch);
+        localAdapter = new LocalAdapter(this, vmLocal);
+        rvLocales.setAdapter(localAdapter);
         if (inicioSesion()) {
             bPerfil.setText("Perfil");
         } else {
@@ -246,4 +255,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    public boolean onQueryTextChange(String newText) {
+        ArrayList<Local> localesFiltrados = vmLocal.obtenerLocales(newText);
+        if (localesFiltrados != null) {
+            localAdapter.setLocales(localesFiltrados);
+            localAdapter.notifyDataSetChanged();
+        }
+        return true;
+    }
+
 }

@@ -23,6 +23,26 @@ public class VMLocal {
 
     VMCategoria vmCategoria;
 
+    //Agregue para la busqueda
+    public ArrayList<Local> obtenerLocales(String query) {
+        ArrayList<Local> localesFiltrados = new ArrayList<>();
+        for (Local local : listaLocales) {
+            if (local.getNombre().toLowerCase().contains(query.toLowerCase())) {
+                localesFiltrados.add(local);
+            }
+        }
+        return localesFiltrados;
+    }
+    //Agregué para la busqueda
+    public ArrayList<Local> filtrarLocalesPorNombre(String query) {
+        ArrayList<Local> localesFiltrados = new ArrayList<>();
+        for (Local local : listaLocales) {
+            if (local.getNombre().toLowerCase().contains(query.toLowerCase())) {
+                localesFiltrados.add(local);
+            }
+        }
+        return localesFiltrados;
+    }
     public VMLocal(Activity oActivity) {
         listaLocales = new ArrayList<>();
         localesEspecificos = new ArrayList<>();

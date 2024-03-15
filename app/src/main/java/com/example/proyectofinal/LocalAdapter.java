@@ -25,7 +25,11 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.ViewHolder> 
     VMLocal vmLocal;
     ArrayList<Local> localesEspecíficos = new ArrayList<>();
     LayoutInflater layoutInflater = null;
-
+    //agregué para busqueda
+    public void setLocales(ArrayList<Local> locales) {
+        this.localesEspecíficos = locales;
+        notifyDataSetChanged();
+    }
     public LocalAdapter(Context context, VMLocal vmLocal) {
         this.context = context;
         this.vmLocal = vmLocal;
