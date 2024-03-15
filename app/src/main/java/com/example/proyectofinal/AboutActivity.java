@@ -88,7 +88,6 @@ public class AboutActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        super.onPause();
-        closeDrawer(drawerLayout);
+        super.onPause();closeDrawer(drawerLayout);
     }
 }
