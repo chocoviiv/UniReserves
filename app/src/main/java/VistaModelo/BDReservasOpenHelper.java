@@ -13,10 +13,21 @@ public class BDReservasOpenHelper extends SQLiteOpenHelper {
             "apellidos VARCHAR(50) NOT NULL," +
             "celular VARCHAR(9) NOT NULL," +
             "dni VARCHAR(8) NOT NULL UNIQUE," +
-            "direccion VARCHAR(50) NOT NULL NOT NULL," +
-            "tipo VARCHAR(50) NOT NULL NOT NULL," +
-            "correo VARCHAR(50) NOT NULL NOT NULL UNIQUE," +
-            "contraseña VARCHAR(50) NOT NULL NOT NULL)";
+            "direccion VARCHAR(50) NOT NULL," +
+            "tipo VARCHAR(50) NOT NULL," +
+            "imagen BLOB," +
+            "correo VARCHAR(50) NOT NULL UNIQUE," +
+            "contraseña VARCHAR(50) NOT NULL)";
+
+
+    String tabla_reserva = "CREATE TABLE Reserva ("
+            + "IdReserva INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+            "IdLocal INTEGER NOT NULL," +
+            "IdCliente INTEGER NOT NULL," +
+            "FechaInicio DATETIME NOT NULL," +
+            "FechaFinal DATETIME NOT NULL," +
+            "Descripcion VARCHAR(100) NOT NULL," +
+            "costo FLOAT NOT NULL)";
 
     String tabla_local = "CREATE TABLE Local ("
             + "IdLocal INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
@@ -40,6 +51,7 @@ public class BDReservasOpenHelper extends SQLiteOpenHelper {
         db.execSQL(tabla_cliente);//Creamos la tabla
         db.execSQL(tabla_local);//
         db.execSQL(tabla_categoria);//
+        db.execSQL(tabla_reserva);//
     }
 
     @Override
@@ -47,6 +59,7 @@ public class BDReservasOpenHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS Cliente");
         db.execSQL("DROP TABLE IF EXISTS Local");
         db.execSQL("DROP TABLE IF EXISTS Categoria");
+        db.execSQL("DROP TABLE IF EXISTS Reserva");
         onCreate(db);
     }
 }

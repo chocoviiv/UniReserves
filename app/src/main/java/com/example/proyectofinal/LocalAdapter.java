@@ -32,7 +32,6 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.ViewHolder> 
         localesEspecíficos = null;
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
-
     public LocalAdapter(Context context, ArrayList<Local> lista) {
         this.context = context;
         this.vmLocal = null;

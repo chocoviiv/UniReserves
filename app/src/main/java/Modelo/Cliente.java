@@ -1,12 +1,15 @@
 package Modelo;
 
-public class Cliente {
+import java.io.Serializable;
+
+public class Cliente implements Serializable {
     private String nombres;
     private String apellidos;
     private String celular;
     private String dni;
     private String direccion;
     private String tipo;
+    private byte[] imagen;
     private String correo;
     private String contraseña;
 
@@ -21,6 +24,23 @@ public class Cliente {
         } else {
             this.tipo = "Externo a la UNC";
         }
+        this.imagen = null;
+        this.correo = correo;
+        this.contraseña = contraseña;
+    }
+
+    public Cliente(String nombres, String apellidos, String celular, String dni, String direccion, byte[] imagen, String correo, String contraseña) {
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.celular = celular;
+        this.dni = dni;
+        this.direccion = direccion;
+        if (esUnc(correo)) {
+            this.tipo = "Miembro de la UNC";
+        } else {
+            this.tipo = "Externo a la UNC";
+        }
+        this.imagen = imagen;
         this.correo = correo;
         this.contraseña = contraseña;
     }
@@ -86,6 +106,14 @@ public class Cliente {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    public byte[] getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
     }
 
     public String getContraseña() {

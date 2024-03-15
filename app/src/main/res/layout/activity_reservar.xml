@@ -36,7 +36,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/b_ingresarFechaIni"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
@@ -47,7 +47,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editTextDate3"
+            android:id="@+id/et_fechaInicial"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
@@ -56,7 +56,7 @@
             android:inputType="date" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/b_ingresarFechaFin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -67,7 +67,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editTextDate4"
+            android:id="@+id/et_fechaFinal"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
@@ -76,7 +76,7 @@
             android:inputType="date" />
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/et_descripcion"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:ems="10"
@@ -84,7 +84,7 @@
             android:inputType="text" />
 
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/b_hacerReserva"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"

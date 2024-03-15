@@ -2,15 +2,17 @@ package Modelo;
 
 import com.google.type.DateTime;
 
+import java.util.Date;
+
 public class Reserva {
     private Cliente clienteID;
     private Local localID;
-    private DateTime fechaInicio;
-    private DateTime fechaFinal;
+    private Date fechaInicio;
+    private Date fechaFinal;
     private String descripcionActi;
     private double costo;
 
-    public Reserva(Cliente clienteID, Local localID, String descripcionActi, DateTime fechaInicio, DateTime fechaFinal, double costo) {
+    public Reserva(Cliente clienteID, Local localID, String descripcionActi, Date fechaInicio, Date fechaFinal, double costo) {
         this.clienteID = clienteID;
         this.localID = localID;
         this.descripcionActi = descripcionActi;
@@ -36,26 +38,26 @@ public class Reserva {
     }
 
     public String getDescripcionActi() {
-        return getDescripcionActi();
+        return descripcionActi;
     }
 
     public void setDescripcionActi(String descripcionActi) {
         this.descripcionActi = descripcionActi;
     }
 
-    public DateTime getFechaInicio() {
+    public Date getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(DateTime fechaInicio) {
+    public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public DateTime getFechaFinal() {
+    public Date getFechaFinal() {
         return fechaFinal;
     }
 
-    public void setFechaFinal(DateTime fechaFinal) {
+    public void setFechaFinal(Date fechaFinal) {
         this.fechaFinal = fechaFinal;
     }
 

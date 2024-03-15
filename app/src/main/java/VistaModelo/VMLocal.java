@@ -106,11 +106,44 @@ public class VMLocal {
         }
         return rpta;
     }
+    public int ObtenerIdLocal(Activity oActivity, String nombre) {
+        int id = -1;
+        BDReservasOpenHelper bdReservasOpenHelper = new BDReservasOpenHelper(oActivity, nombreBD, null, version);
+        SQLiteDatabase database = bdReservasOpenHelper.getReadableDatabase();
+        if (database != null) {
+            Cursor registro = database.rawQuery("SELECT IdLocal FROM Local WHERE nombre='" + nombre + "'", null);
+            if (registro.moveToFirst()) {
+                id = registro.getInt(0);
+            }
+            database.close();
+        }
+        return id;
+    }
+    public Local LocalID(Activity oActivity, int id) {
+        vmCategoria = new VMCategoria(oActivity);
+        Local local = null;
+        BDReservasOpenHelper bdReservasOpenHelper = new BDReservasOpenHelper(oActivity, nombreBD, null, version);
+        SQLiteDatabase database = bdReservasOpenHelper.getReadableDatabase();
+        if (database != null) {
+            Cursor registros = database.rawQuery("SELECT * FROM Local WHERE IdLocal=" + id, null);
+            if (registros.moveToFirst()) {
+                String nombre = registros.getString(1);
+                String idCateg = registros.getString(2);
+                int indiceCateg = vmCategoria.getIndiceId(idCateg);
+                byte[] imagen = registros.getBlob(3);
+                Double precio = registros.getDouble(4);
+                String ubicacion = registros.getString(5);
+                String disponibilidad = registros.getString(6);
+                local = new Local(nombre, vmCategoria.getCategoria(indiceCateg), imagen, precio, ubicacion, disponibilidad);
+            }
+            database.close();
+        }
+        return local;
+    }
 
     public Local ObtenerLocal(int pos) {
         return listaLocales.get(pos);
     }
-
     public int sizeLocal() {
         return listaLocales.size();
     }
