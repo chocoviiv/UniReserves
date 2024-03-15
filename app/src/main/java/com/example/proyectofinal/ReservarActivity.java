@@ -131,7 +131,6 @@ public class ReservarActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     public void AgregarReserva() {
@@ -171,8 +170,6 @@ public class ReservarActivity extends AppCompatActivity {
                 Toast.makeText(this, "Fallo al reservar", Toast.LENGTH_SHORT).show();
             }
         }
-
-
     }
 
 

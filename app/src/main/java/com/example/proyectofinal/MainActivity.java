@@ -1,13 +1,12 @@
 package com.example.proyectofinal;
 
-import
-        androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -30,7 +28,7 @@ import Modelo.Local;
 import VistaModelo.VMLocal;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
-    private SearchView svSearch;
+    SearchView svSearch;
     Button binicio, bReservas, bPerfil, bEventos, bConferencias, bDeportes, bGeneral;
     Spinner spLocales;
     public VMLocal vmLocal;
@@ -42,7 +40,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     FirebaseUser user;
     DrawerLayout drawerLayout;
     ImageView menu;
-    LinearLayout home, settings, share,about,logout;
+    LinearLayout home, settings, share, about, logout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,13 +52,13 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         //setSupportActionBar(toolbar);
 
         drawerLayout = findViewById(R.id.drawerLayout);
-        menu=findViewById(R.id.menu);
-        home=findViewById(R.id.home);
-        about=findViewById(R.id.about);
-        logout=findViewById(R.id.logout);
-        settings=findViewById(R.id.settings);
-        share=findViewById(R.id.share);
-        svSearch= findViewById(R.id.svSearch);
+        menu = findViewById(R.id.menu);
+        home = findViewById(R.id.home);
+        about = findViewById(R.id.about);
+        logout = findViewById(R.id.logout);
+        settings = findViewById(R.id.settings);
+        share = findViewById(R.id.share);
+        svSearch = findViewById(R.id.svSearch);
         svSearch.setOnQueryTextListener(this);
         vmLocal = new VMLocal(this);
         menu.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         bDeportes = findViewById(R.id.b_deportes);
         bGeneral = findViewById(R.id.b_general);
         rvLocales = findViewById(R.id.rv_locales);
-        svSearch= findViewById(R.id.svSearch);
+        svSearch = findViewById(R.id.svSearch);
         localAdapter = new LocalAdapter(this, vmLocal);
         rvLocales.setAdapter(localAdapter);
         if (inicioSesion()) {
@@ -127,8 +126,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String localSeleccionado = (String) parent.getItemAtPosition(position);
-
-
             }
 
             @Override
@@ -171,12 +168,15 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         });
 
         bGeneral.setOnClickListener(v -> {
-            adapter.clear();
+            auth.signOut();
+            finish();
+            startActivity(new Intent(MainActivity.this, MainActivity.class));
+           /* adapter.clear();
             adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, vmLocal.formatoCadenaLocales());
             spLocales.setAdapter(adapter);
             localAdapter = new LocalAdapter(this, vmLocal);
             rvLocales.setAdapter(localAdapter);
-            EjecutarBotonReserva();
+            EjecutarBotonReserva();*/
 
         });
 
@@ -223,15 +223,18 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         }
         return false;
     }
-    public static void openDrawer(DrawerLayout drawerLayout){
+
+    public static void openDrawer(DrawerLayout drawerLayout) {
         drawerLayout.openDrawer(GravityCompat.START);
     }
-    public static void  closeDrawer (DrawerLayout drawerLayout){
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+
+    public static void closeDrawer(DrawerLayout drawerLayout) {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         }
     }
-    public static void redirectActivity(Activity activity, Class secondActivity){
+
+    public static void redirectActivity(Activity activity, Class secondActivity) {
         Intent intent = new Intent(activity, secondActivity);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);
