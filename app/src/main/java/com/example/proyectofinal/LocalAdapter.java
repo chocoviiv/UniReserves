@@ -32,7 +32,6 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.ViewHolder> 
         localesEspecíficos = null;
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
-
     public LocalAdapter(Context context, ArrayList<Local> lista) {
         this.context = context;
         this.vmLocal = null;
@@ -70,8 +69,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.ViewHolder> 
         holder.tvPrecio.setText("S/. " + local.getPrecio());
         holder.tvDisponibilidad.setText(local.getDisponibildiad());
         holder.tvUbicacion.setText(local.getUbicacion());
-        Bitmap bitmap = BitmapFactory.decodeByteArray(local.getImagen(), 0, local.getImagen().length);
-        holder.ivLocal.setImageBitmap(bitmap);
+        holder.ivLocal.setImageResource(DecodificarBytesToInt(local.getImagen()));
 
         holder.bReservar.setOnClickListener(new View.OnClickListener() {
             @Override

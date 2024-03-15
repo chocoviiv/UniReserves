@@ -110,7 +110,6 @@ public class VMLocal {
     public Local ObtenerLocal(int pos) {
         return listaLocales.get(pos);
     }
-
     public int sizeLocal() {
         return listaLocales.size();
     }
