@@ -86,6 +86,7 @@ public class RegistrarActivity extends AppCompatActivity {
         String contraseña = etContraseña.getText().toString().trim();
         if (nombres.isEmpty() || apellidos.isEmpty() || celular.isEmpty() || dni.isEmpty() || direccion.isEmpty() || correo.isEmpty() || contraseña.isEmpty()) {
             Toast.makeText(this, "Llene todos los campos", Toast.LENGTH_SHORT).show();
+            return;
         } else {
             mAuth.createUserWithEmailAndPassword(correo, contraseña).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
@@ -93,7 +94,7 @@ public class RegistrarActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null) {
-                            String id = mAuth.getCurrentUser().getUid();
+                            String id = user.getUid();
                             Map<String, Object> map = new HashMap<>();
                             map.put("id", id);
                             map.put("nombres", nombres);
@@ -132,7 +133,7 @@ public class RegistrarActivity extends AppCompatActivity {
                             });
                         }
                     } else {
-                        Toast.makeText(RegistrarActivity.this, "Error al obtener el usuario actual", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistrarActivity.this, "Error al registrar en Firebase Anthenticación", Toast.LENGTH_SHORT).show();
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {

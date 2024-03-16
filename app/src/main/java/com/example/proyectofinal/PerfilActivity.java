@@ -139,7 +139,6 @@ public class PerfilActivity extends AppCompatActivity {
             }
             startActivity(intent);
         });
-
         bEditarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,6 +149,7 @@ public class PerfilActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         bCerrarSesion.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {

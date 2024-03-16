@@ -102,7 +102,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 actualizarCliente(etNombresEdit.getText().toString(), etApellidosEdit.getText().toString(), etCelularEdit.getText().toString(), etDniEdit.getText().toString(), etDireccionEdit.getText().toString());
-                startActivity(new Intent(EditarPerfilActivity.this, MainActivity.class));
+                finish();
             }
         });
 
@@ -133,15 +133,19 @@ public class EditarPerfilActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == 11) {
-            ivImagenUserEdit.setImageURI(data.getData());
-            ivImagenUserEdit.buildDrawingCache();//Para construir la imagen en formato x(no esuché xd) para pasar a bitmap
-            // convierte la imagen a Bitmap y luego a tipo byte
-            Bitmap imagenBitMap = ivImagenUserEdit.getDrawingCache();//convierte la imagen a bitmap
-            ByteArrayOutputStream flujoSalida = new ByteArrayOutputStream();
-            imagenBitMap.compress(Bitmap.CompressFormat.PNG, 0, flujoSalida);//comprimimos en formato PNG y pasamos a array
-            imagen = flujoSalida.toByteArray();
+            if (data != null && data.getData() != null) { // Verificar si se seleccionó una imagen
+                ivImagenUserEdit.setImageURI(data.getData());
+                ivImagenUserEdit.buildDrawingCache();
+                Bitmap imagenBitMap = ivImagenUserEdit.getDrawingCache();
+                ByteArrayOutputStream flujoSalida = new ByteArrayOutputStream();
+                imagenBitMap.compress(Bitmap.CompressFormat.PNG, 0, flujoSalida);
+                imagen = flujoSalida.toByteArray();
+            } else {
+                Toast.makeText(this, "No se seleccionó ninguna imagen", Toast.LENGTH_SHORT).show();
+            }
         }
     }
+
     private void actualizarCliente(String nombres, String apellidos, String celular, String dni, String direccion) {
         DocumentReference documentReference = firebaseFirestore.collection("Usuario").document(idUsuario);
         Map<String, Object> updates = new HashMap<>();
