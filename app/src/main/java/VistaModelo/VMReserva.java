@@ -51,6 +51,60 @@ public class VMReserva {
         return rpta;
     }
 
+    public boolean ModificarReserva(Activity activity, Reserva reserva, int idReserva) {
+        boolean rpta = false;
+        BDReservasOpenHelper bdReservasOpenHelper = new BDReservasOpenHelper(activity, nombreBD, null, version);
+        SQLiteDatabase database = bdReservasOpenHelper.getWritableDatabase();
+        if (database != null) {
+            ContentValues registros = new ContentValues();
+            registros.put("FechaInicio", reserva.getFechaInicio().toString());
+            registros.put("FechaFinal", reserva.getFechaFinal().toString());
+            registros.put("Descripcion", reserva.getDescripcionActi());
+            int filas = (int) database.update("Reserva", registros, "IdReserva=" + idReserva, null);
+            database.close();
+            if (filas > 0) {
+                rpta = true;
+            }
+            database.close();
+        }
+        return rpta;
+    }
+
+    public boolean ElimianarReserva(Activity activity, int idReserva){
+        boolean rpta = false;
+        BDReservasOpenHelper bdReservasOpenHelper = new BDReservasOpenHelper(activity, nombreBD, null, version);
+        SQLiteDatabase database = bdReservasOpenHelper.getWritableDatabase();
+        if (database != null){
+            // Realizamos la eliminación del registro de reserva con el ID especificado
+            int filasEliminadas = database.delete("Reserva", "IdReserva=?", new String[]{String.valueOf(idReserva)});
+
+            if (filasEliminadas>0){
+                rpta = true;
+            }
+            database.close();
+        }
+        return rpta;
+    }
+
+
+    public int ObtenerIdReserva(Activity oActivity, String correoCliente) {
+        int idReserva = -1;
+        vmCliente = new VMCliente();
+        BDReservasOpenHelper bdReservasOpenHelper = new BDReservasOpenHelper(oActivity, nombreBD, null, version);
+        SQLiteDatabase database = bdReservasOpenHelper.getReadableDatabase();
+        if (database != null) {
+            // Primero, obtenemos el ID del cliente dado el correo electrónico
+            int idCliente = vmCliente.ObtenerIdCliente(oActivity, correoCliente);
+
+            Cursor registro = database.rawQuery("SELECT IdReserva FROM Reserva WHERE IdCliente=" + idCliente, null);
+            if (registro.moveToFirst()) {
+                idReserva = registro.getInt(0);
+            }
+            database.close();
+        }
+        return idReserva;
+    }
+
     public ArrayList<Reserva> listaReserva(Activity activity, String correo) {
         BDReservasOpenHelper bdReservasOpenHelper = new BDReservasOpenHelper(activity, nombreBD, null, version);
         SQLiteDatabase database = bdReservasOpenHelper.getReadableDatabase();
@@ -108,6 +162,7 @@ public class VMReserva {
         return fechasReservadas;
     }
 
+    //Es necesario para llenar el constructor de reserva
     public Date convertirStrinToDate(String cadena) {
         SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.getDefault());
         Date fecha = null;
@@ -127,9 +182,4 @@ public class VMReserva {
         return listaReservas.size();
     }
 
-    public void eliminarReserva(Reserva reserva) {
-        if(listaReservas!= null && listaReservas.contains(reserva)){
-            listaReservas.remove(reserva);
-        }
-    }
 }

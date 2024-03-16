@@ -28,7 +28,7 @@ import Modelo.Local;
 import VistaModelo.VMLocal;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
-    SearchView svSearch;
+    SearchView buscador;
     Button binicio, bReservas, bPerfil, bEventos, bConferencias, bDeportes, bGeneral;
     Spinner spLocales;
     public VMLocal vmLocal;
@@ -58,9 +58,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         logout = findViewById(R.id.logout);
         settings = findViewById(R.id.settings);
         share = findViewById(R.id.share);
-        svSearch = findViewById(R.id.svSearch);
-        svSearch.setOnQueryTextListener(this);
-        vmLocal = new VMLocal(this);
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,14 +107,14 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         bDeportes = findViewById(R.id.b_deportes);
         bGeneral = findViewById(R.id.b_general);
         rvLocales = findViewById(R.id.rv_locales);
-        svSearch = findViewById(R.id.svSearch);
-        localAdapter = new LocalAdapter(this, vmLocal);
-        rvLocales.setAdapter(localAdapter);
+        buscador = findViewById(R.id.buscador);
+
         if (inicioSesion()) {
             bPerfil.setText("Perfil");
         } else {
             bPerfil.setText("Login");
         }
+
         spLocales = findViewById(R.id.sp_locales);
         adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, vmLocal.formatoCadenaLocales());
         spLocales.setAdapter(adapter);
@@ -126,6 +123,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String localSeleccionado = (String) parent.getItemAtPosition(position);
+
+
             }
 
             @Override
@@ -133,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
             }
         });
+        buscador.setOnQueryTextListener(this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rvLocales.setLayoutManager(linearLayoutManager);
@@ -168,8 +168,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         });
 
         bGeneral.setOnClickListener(v -> {
-            auth.signOut();
-            finish();
             startActivity(new Intent(MainActivity.this, MainActivity.class));
            /* adapter.clear();
             adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, vmLocal.formatoCadenaLocales());
@@ -194,8 +192,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         });
 
         binicio.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, MainActivity.class)));
-
-
         bReservas.setOnClickListener(v -> {
             Intent intent;
             if (inicioSesion()) {
@@ -216,11 +212,33 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             startActivity(intent);
         });
     }
+    public void EjecutarBotonReserva() {
+        localAdapter.setOnLocalClickListener(new LocalAdapter.OnLocalClickListener() {
+            @Override
+            public void OnLocalClick(Local local, int llamada) {
+                if (llamada == 1) {
+                    Intent intent = new Intent(MainActivity.this, ReservarActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+    }
 
     public boolean inicioSesion() {
         if (user != null) {
             return true;
         }
+        return false;
+    }
+    //Estos métodos sirven para buscar en tiempo real al momento de ir escribiendo
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        localAdapter.filtrado(newText);
         return false;
     }
 
@@ -245,32 +263,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     protected void onPause() {
         super.onPause();
         closeDrawer(drawerLayout);
-    }
-
-    public void EjecutarBotonReserva() {
-        localAdapter.setOnLocalClickListener(new LocalAdapter.OnLocalClickListener() {
-            @Override
-            public void OnLocalClick(Local local, int llamada) {
-                if (llamada == 1) {
-                    Intent intent = new Intent(MainActivity.this, ReservarActivity.class);
-                    startActivity(intent);
-                }
-            }
-        });
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
-    public boolean onQueryTextChange(String newText) {
-        ArrayList<Local> localesFiltrados = vmLocal.obtenerLocales(newText);
-        if (localesFiltrados != null) {
-            localAdapter.setLocales(localesFiltrados);
-            localAdapter.notifyDataSetChanged();
-        }
-        return true;
     }
 
 }

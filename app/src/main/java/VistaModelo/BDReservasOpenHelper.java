@@ -62,4 +62,5 @@ public class BDReservasOpenHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS Reserva");
         onCreate(db);
     }
+
 }

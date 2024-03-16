@@ -1,6 +1,5 @@
 package com.example.proyectofinal;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -21,8 +20,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,9 +32,11 @@ import VistaModelo.VMCliente;
 import VistaModelo.VMLocal;
 import VistaModelo.VMReserva;
 
-public class ReservarActivity extends AppCompatActivity {
+public class ModificarReservaActivity extends AppCompatActivity {
+
     Button binicio, bReservas, bPerfil, bIngFechaIni, bIngFechaFin, bHacerReserva;
     EditText etFechaIni, etFechaFin, etDescripcion;
+    Reserva reserva;
 
     private int dia, mes, año, hora, minutos;
     String horaInicio = "", horaFin = "";
@@ -52,11 +51,10 @@ public class ReservarActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reservar);
-
+        setContentView(R.layout.activity_modificar_reserva);
         //toolBar
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Reservar");
+        toolbar.setTitle("Editar Reserva");
         setSupportActionBar(toolbar);
 
         //para agregar la flecha de navegar
@@ -72,40 +70,34 @@ public class ReservarActivity extends AppCompatActivity {
         user = auth.getCurrentUser();
         vmReserva = new VMReserva();
         vmCliente = new VMCliente();
-        vmLocal = new VMLocal(ReservarActivity.this);
+        vmLocal = new VMLocal(ModificarReservaActivity.this);
 
-        binicio = findViewById(R.id.b_inicioReservar);
-        bReservas = findViewById(R.id.b_reservasReservar);
-        bPerfil = findViewById(R.id.b_perfilReservar);
-        bIngFechaIni = findViewById(R.id.b_ingresarFechaIni);
-        bIngFechaFin = findViewById(R.id.b_ingresarFechaFin);
-        bHacerReserva = findViewById(R.id.b_hacerReserva);
-        etFechaIni = findViewById(R.id.et_fechaInicial);
-        etFechaFin = findViewById(R.id.et_fechaFinal);
-        etDescripcion = findViewById(R.id.et_descripcion);
+        binicio = findViewById(R.id.b_inicioReservarM);
+        bReservas = findViewById(R.id.b_reservasReservarM);
+        bPerfil = findViewById(R.id.b_perfilReservarM);
+        bIngFechaIni = findViewById(R.id.b_modificarFechaIni);
+        bIngFechaFin = findViewById(R.id.b_modificarFechaFin);
+        bHacerReserva = findViewById(R.id.b_modicarReserva);
+        etFechaIni = findViewById(R.id.et_modificarFechaInicial);
+        etFechaFin = findViewById(R.id.et_modificarFechaFinal);
+        etDescripcion = findViewById(R.id.et_modificarDescripcion);
         etFechaIni.setEnabled(false);
         etFechaFin.setEnabled(false);
         etFechaIni.setTextColor(getResources().getColor(R.color.black));
         etFechaFin.setTextColor(getResources().getColor(R.color.black));
 
-        Bundle datoLocal = getIntent().getExtras();
-        local = (Local) datoLocal.getSerializable("local");
 
-        binicio.setOnClickListener(v -> {
-            Intent intent = new Intent(ReservarActivity.this, MainActivity.class);
-            startActivity(intent);
-        });
+        Bundle datoReserva = getIntent().getExtras();
+        reserva = (Reserva) datoReserva.getSerializable("reserva");
+        local = reserva.getLocalID();
 
-        bReservas.setOnClickListener(v -> {
-            Intent intent = new Intent(ReservarActivity.this, ReservasActivity.class);
-            startActivity(intent);
-        });
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+        String fechaInicio = sdf.format(reserva.getFechaInicio());
+        String fechaFin = sdf.format(reserva.getFechaFinal());
 
-        bPerfil.setOnClickListener(v -> {
-            Intent intent;
-            intent = new Intent(ReservarActivity.this, PerfilActivity.class);
-            startActivity(intent);
-        });
+        etFechaIni.setText(fechaInicio);
+        etFechaFin.setText(fechaFin);
+        etDescripcion.setText(reserva.getDescripcionActi());
 
         bIngFechaIni.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,27 +112,42 @@ public class ReservarActivity extends AppCompatActivity {
                 ObtenerFechaFinal();
             }
         });
+
+        //Modifica reserva
         bHacerReserva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (etFechaIni.getText().toString().isEmpty() || etFechaFin.getText().toString().isEmpty() || etDescripcion.getText().toString().isEmpty()) {
-                    Toast.makeText(ReservarActivity.this, "Llene las fechas", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ModificarReservaActivity.this, "Llene las fechas", Toast.LENGTH_SHORT).show();
                 } else {
-                    AgregarReserva();
+                    ModificarReserva();
                 }
             }
         });
 
+        binicio.setOnClickListener(v -> {
+            Intent intent = new Intent(ModificarReservaActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
+
+        bReservas.setOnClickListener(v -> {
+            Intent intent = new Intent(ModificarReservaActivity.this, ReservasActivity.class);
+            startActivity(intent);
+        });
+
+        bPerfil.setOnClickListener(v -> {
+            Intent intent;
+            intent = new Intent(ModificarReservaActivity.this, PerfilActivity.class);
+            startActivity(intent);
+        });
     }
 
-    public void AgregarReserva() {
-        int idCliente = 0;
-        int idLocal = 0;
+    public void ModificarReserva() {
+        int idReserva = 0;
         Cliente cliente = null;
         if (user != null) {
-            idCliente = vmCliente.ObtenerIdCliente(ReservarActivity.this, user.getEmail());
-            idLocal = vmLocal.ObtenerIdLocal(ReservarActivity.this, local.getNombre());
-            cliente = vmCliente.ClienteCorreo(ReservarActivity.this, user.getEmail());
+            cliente = vmCliente.ClienteCorreo(ModificarReservaActivity.this, user.getEmail());
+            idReserva = vmReserva.ObtenerIdReserva(ModificarReservaActivity.this,user.getEmail());
         }
 
         // Suponiendo que tienes las cadenas de texto etFechaIni y etFechaFin en el formato "dd/MM/yyyy HH:mm"
@@ -161,21 +168,22 @@ public class ReservarActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
-        if (idLocal > 0 && idCliente > 0) {
+        if (idReserva > 0) {
             Reserva reserva = new Reserva(cliente, local, etDescripcion.getText().toString(), fechaInicio, fechaFin, local.getPrecio());
-            if (vmReserva.AgregarReserva(ReservarActivity.this, reserva, idLocal, idCliente)) {
-                Toast.makeText(this, "Reserva hecha exitosamente.", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(ReservarActivity.this, ReservasActivity.class));
+            if (vmReserva.ModificarReserva(ModificarReservaActivity.this, reserva, idReserva)) {
+                Toast.makeText(this, "Reserva modificada exitosamente.", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ModificarReservaActivity.this, ReservasActivity.class));
             } else {
-                Toast.makeText(this, "Fallo al reservar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Fallo al modificar", Toast.LENGTH_SHORT).show();
             }
         }
-
     }
+
+
     public void ObtenerFechaIni() {
         int idLocal = 0;
         if (user != null) {
-            idLocal = vmLocal.ObtenerIdLocal(ReservarActivity.this, local.getNombre());
+            idLocal = vmLocal.ObtenerIdLocal(ModificarReservaActivity.this, local.getNombre());
         }
         dia = 0;
         mes = 0;
@@ -192,7 +200,7 @@ public class ReservarActivity extends AppCompatActivity {
         Locale idioma = Locale.getDefault();
         Locale.setDefault(idioma);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(ReservarActivity.this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(ModificarReservaActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 fechaIni = dayOfMonth + "/" + (month + 1) + "/" + year;
@@ -201,7 +209,8 @@ public class ReservarActivity extends AppCompatActivity {
             }
         }, año, mes, dia);
 
-        ArrayList<Date> fechasReservadas = vmReserva.obtenerFechasReservadas(ReservarActivity.this, idLocal);
+
+        ArrayList<Date> fechasReservadas = vmReserva.obtenerFechasReservadas(ModificarReservaActivity.this, idLocal);
 
         // Establecer el límite mínimo como la fecha actual
         datePickerDialog.getDatePicker().setMinDate(fechaActualMillis);
@@ -227,7 +236,7 @@ public class ReservarActivity extends AppCompatActivity {
                     selectedCalendar.set(year, monthOfYear, dayOfMonth);
                     if (fechasReservadasMillis.contains(selectedCalendar.getTimeInMillis())) {
                         // La fecha seleccionada está reservada, mostrar un mensaje de error
-                        Toast.makeText(ReservarActivity.this, "Esta fecha ya está reservada", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ModificarReservaActivity.this, "Esta fecha ya está reservada", Toast.LENGTH_SHORT).show();
                         // Restablecer la fecha seleccionada
                         view.updateDate(año, mes, dia);
                     }
@@ -241,7 +250,7 @@ public class ReservarActivity extends AppCompatActivity {
         Calendar c = Calendar.getInstance();
         hora = c.get(Calendar.HOUR_OF_DAY);
         minutos = c.get(Calendar.MINUTE);
-        TimePickerDialog timePickerDialog = new TimePickerDialog(ReservarActivity.this, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(ModificarReservaActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 String minutosString = (minute < 10) ? "0" + minute : String.valueOf(minute);
@@ -251,6 +260,7 @@ public class ReservarActivity extends AppCompatActivity {
         }, hora, minutos, false);
         timePickerDialog.show();
     }
+
     public void ObtenerFechaFinal() {
         dia = 0;
         mes = 0;
@@ -263,7 +273,7 @@ public class ReservarActivity extends AppCompatActivity {
         // Establecer el límite máximo como la fecha actual
         long fechaActualMillis = c.getTimeInMillis();
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(ReservarActivity.this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(ModificarReservaActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 fechaFin = dayOfMonth + "/" + (month + 1) + "/" + year;
@@ -283,7 +293,7 @@ public class ReservarActivity extends AppCompatActivity {
         Calendar c = Calendar.getInstance();
         hora = c.get(Calendar.HOUR_OF_DAY);
         minutos = c.get(Calendar.MINUTE);
-        TimePickerDialog timePickerDialog = new TimePickerDialog(ReservarActivity.this, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(ModificarReservaActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 String minutosString = (minute < 10) ? "0" + minute : String.valueOf(minute);
@@ -293,5 +303,6 @@ public class ReservarActivity extends AppCompatActivity {
         }, hora, minutos, false);
         timePickerDialog.show();
     }
+
 
 }

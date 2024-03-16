@@ -21,6 +21,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import Modelo.Local;
 import VistaModelo.VMLocal;
@@ -30,18 +32,17 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.ViewHolder> 
     Context context;
     VMLocal vmLocal;
     ArrayList<Local> localesEspecíficos = new ArrayList<>();
+    ArrayList<Local> listaLocales;
     LayoutInflater layoutInflater = null;
-    //agregué para busqueda
-    public void setLocales(ArrayList<Local> locales) {
-        this.localesEspecíficos = locales;
-        notifyDataSetChanged();
-    }
     public LocalAdapter(Context context, VMLocal vmLocal) {
         this.context = context;
         this.vmLocal = vmLocal;
         localesEspecíficos = null;
+        listaLocales = new ArrayList<>();
+        listaLocales.addAll(vmLocal.ListasE());
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
+
     public LocalAdapter(Context context, ArrayList<Local> lista) {
         this.context = context;
         this.vmLocal = null;
@@ -66,7 +67,6 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.ViewHolder> 
         View view = LayoutInflater.from(context).inflate(R.layout.local_item_lis, parent, false);
         return new ViewHolder(view);
     }
-
     @Override
     public void onBindViewHolder(@NonNull LocalAdapter.ViewHolder holder, int position) {
         Local local;
@@ -92,26 +92,6 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.ViewHolder> 
                 }
             }
         });
-    }
-
-    private void mostrarDialogoRegistro() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage("Para reservar, primero debes iniciar sesión o registrarte.");
-        builder.setPositiveButton("Registrarme", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(context, RegistrarActivity.class);
-                 context.startActivity(intent);
-            }
-        });
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
 
     private boolean verificarUsuarioRegistrado() {
@@ -151,6 +131,16 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.ViewHolder> 
     private int DecodificarBytesToInt(byte[] bytes) {
         ByteBuffer buffer = ByteBuffer.wrap(bytes);
         return buffer.getInt();
+    }
+    public void filtrado(String texto) {
+        if (texto.isEmpty()) {
+            vmLocal.listaLocales.addAll(vmLocal.ListasE());
+        } else {
+            List<Local> collecion = vmLocal.listaLocales.stream().filter(i -> i.getNombre().toLowerCase().contains(texto.toLowerCase())).collect(Collectors.toList());
+            vmLocal.listaLocales.clear();
+            vmLocal.listaLocales.addAll(collecion);
+        }
+        notifyDataSetChanged();//para notificar que hemos hechos cambios
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -103,6 +103,24 @@ public class VMCliente {
         return id;
     }
 
+    public boolean verificarCliente(Activity oActivity,String correo, String contrasena) {
+        BDReservasOpenHelper bdReservasOpenHelper = new BDReservasOpenHelper(oActivity, nombreBD, null, version);
+        SQLiteDatabase database = bdReservasOpenHelper.getReadableDatabase();
+        boolean existeCliente = false;
+
+        if (database != null) {
+            String[] args = new String[]{correo, contrasena};
+            Cursor c = database.rawQuery("SELECT * FROM Cliente WHERE correo=? AND contraseña=?", args);
+
+            if (c.moveToFirst()) {
+                existeCliente = true;
+            }
+            c.close();
+            database.close();
+        }
+        return existeCliente;
+    }
+
     public Cliente ClienteCorreo(Activity oActivity, String correo) {
         Cliente cliente = null;
         BDReservasOpenHelper bdReservasOpenHelper = new BDReservasOpenHelper(oActivity, nombreBD, null, version);

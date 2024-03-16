@@ -59,7 +59,9 @@ public class EditarPerfilActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                getOnBackPressedDispatcher().onBackPressed();
+                //getOnBackPressedDispatcher().onBackPressed();
+                Intent intent = new Intent(EditarPerfilActivity.this, PerfilActivity.class);
+                startActivity(intent);
             }
         });
         vmCliente = new VMCliente();
@@ -91,7 +93,9 @@ public class EditarPerfilActivity extends AppCompatActivity {
         }
 
         bEditCorreoContra.setOnClickListener(v -> {
-            startActivity(new Intent(EditarPerfilActivity.this, CambiarContraActivity.class));
+            Intent intent = new Intent(EditarPerfilActivity.this, CambiarContraActivity.class);
+            intent.putExtra("cliente", cliente);
+            startActivity(intent);
         });
 
         bGuardarCambios.setOnClickListener(new OnClickListener() {
@@ -138,7 +142,6 @@ public class EditarPerfilActivity extends AppCompatActivity {
             imagen = flujoSalida.toByteArray();
         }
     }
-
     private void actualizarCliente(String nombres, String apellidos, String celular, String dni, String direccion) {
         DocumentReference documentReference = firebaseFirestore.collection("Usuario").document(idUsuario);
         Map<String, Object> updates = new HashMap<>();
@@ -183,6 +186,5 @@ public class EditarPerfilActivity extends AppCompatActivity {
         });
 
     }
-
 
 }

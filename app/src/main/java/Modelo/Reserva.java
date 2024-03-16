@@ -2,9 +2,10 @@ package Modelo;
 
 import com.google.type.DateTime;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Reserva {
+public class Reserva implements Serializable {
     private Cliente clienteID;
     private Local localID;
     private Date fechaInicio;

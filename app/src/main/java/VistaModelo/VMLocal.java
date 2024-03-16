@@ -12,37 +12,16 @@ import com.example.proyectofinal.R;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
+import Modelo.Cliente;
 import Modelo.Local;
 
 public class VMLocal {
-    private ArrayList<Local> listaLocales;
+    public ArrayList<Local> listaLocales;
     private ArrayList<Local> localesEspecificos;
     String nombreBD;
     int version;
     Activity oActivity;
-
     VMCategoria vmCategoria;
-
-    //Agregue para la busqueda
-    public ArrayList<Local> obtenerLocales(String query) {
-        ArrayList<Local> localesFiltrados = new ArrayList<>();
-        for (Local local : listaLocales) {
-            if (local.getNombre().toLowerCase().contains(query.toLowerCase())) {
-                localesFiltrados.add(local);
-            }
-        }
-        return localesFiltrados;
-    }
-    //Agregué para la busqueda
-    public ArrayList<Local> filtrarLocalesPorNombre(String query) {
-        ArrayList<Local> localesFiltrados = new ArrayList<>();
-        for (Local local : listaLocales) {
-            if (local.getNombre().toLowerCase().contains(query.toLowerCase())) {
-                localesFiltrados.add(local);
-            }
-        }
-        return localesFiltrados;
-    }
     public VMLocal(Activity oActivity) {
         listaLocales = new ArrayList<>();
         localesEspecificos = new ArrayList<>();
@@ -126,6 +105,8 @@ public class VMLocal {
         }
         return rpta;
     }
+
+
     public int ObtenerIdLocal(Activity oActivity, String nombre) {
         int id = -1;
         BDReservasOpenHelper bdReservasOpenHelper = new BDReservasOpenHelper(oActivity, nombreBD, null, version);
@@ -139,6 +120,7 @@ public class VMLocal {
         }
         return id;
     }
+
     public Local LocalID(Activity oActivity, int id) {
         vmCategoria = new VMCategoria(oActivity);
         Local local = null;
@@ -164,6 +146,7 @@ public class VMLocal {
     public Local ObtenerLocal(int pos) {
         return listaLocales.get(pos);
     }
+
     public int sizeLocal() {
         return listaLocales.size();
     }
@@ -217,7 +200,7 @@ public class VMLocal {
     }
 
     public ArrayList<Local> ListasE() {
+        CargarLista();
         return this.localesEspecificos;
     }
-
 }

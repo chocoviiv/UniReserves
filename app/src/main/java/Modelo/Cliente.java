@@ -3,7 +3,7 @@ package Modelo;
 import java.io.Serializable;
 
 public class Cliente implements Serializable {
-    private  String id;
+    private  String Id;
     private String nombres;
     private String apellidos;
     private String celular;
@@ -53,12 +53,8 @@ public class Cliente implements Serializable {
         return false;
     }
 
-    public String getId() {
-        return id;
-    }
-
     public void setId(String id) {
-        this.id = id;
+        Id = id;
     }
 
     public String getNombres() {
