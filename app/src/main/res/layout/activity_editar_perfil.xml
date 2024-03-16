@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondograd"
     tools:context=".EditarPerfilActivity">
 
     <include
@@ -30,6 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="243dp"
         android:layout_marginTop="24dp"
+        android:background="@color/yellow"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +46,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Nombre:"></TextView>
+                android:fontFamily="@font/andika_new_basic"
+                android:text="Nombre:"
+                android:textStyle="bold"></TextView>
 
             <EditText
                 android:id="@+id/et_nombresEditar"
@@ -52,6 +56,7 @@
                 android:layout_height="48dp"
                 android:layout_marginLeft="8dp"
                 android:ems="10"
+                android:fontFamily="@font/atma_light"
                 android:hint="Nombres"
                 android:inputType="text" />
         </LinearLayout>
@@ -65,7 +70,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Apellidos:"></TextView>
+                android:fontFamily="@font/andika_new_basic"
+                android:text="Apellidos:"
+                android:textStyle="bold"></TextView>
 
             <EditText
                 android:id="@+id/et_apellidosEditar"
@@ -73,6 +80,7 @@
                 android:layout_height="48dp"
                 android:layout_marginLeft="8dp"
                 android:ems="10"
+                android:fontFamily="@font/atma_light"
                 android:hint="Apellidos"
                 android:inputType="text" />
         </LinearLayout>
@@ -86,14 +94,17 @@
                 android:layout_width="55dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Celular:"></TextView>
+                android:fontFamily="@font/andika_new_basic"
+                android:text="Celular:"
+                android:textStyle="bold"></TextView>
 
             <EditText
                 android:id="@+id/et_celularEditar"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:ems="10"
                 android:layout_marginLeft="12dp"
+                android:ems="10"
+                android:fontFamily="@font/atma_light"
                 android:hint="Celular"
                 android:inputType="text" />
         </LinearLayout>
@@ -107,13 +118,17 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="DNI:"></TextView>
+                android:fontFamily="@font/andika_new_basic"
+                android:text="DNI:"
+                android:textStyle="bold"></TextView>
+
             <EditText
                 android:id="@+id/et_dniEditar"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:ems="10"
                 android:layout_marginLeft="20dp"
+                android:ems="10"
+                android:fontFamily="@font/atma_light"
                 android:hint="DNI"
                 android:inputType="text" />
         </LinearLayout>
@@ -127,7 +142,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:text="Dirección:"></TextView>
+                android:fontFamily="@font/andika_new_basic"
+                android:text="Dirección:"
+                android:textStyle="bold"></TextView>
 
             <EditText
                 android:id="@+id/et_direccionEditar"
@@ -135,6 +152,7 @@
                 android:layout_height="48dp"
                 android:layout_marginLeft="12dp"
                 android:ems="10"
+                android:fontFamily="@font/atma_light"
                 android:hint="Direccion"
                 android:inputType="text" />
         </LinearLayout>
@@ -143,27 +161,29 @@
 
     <Button
         android:id="@+id/b_guardarCambios"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="67dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="61dp"
         android:layout_marginTop="36dp"
-        android:text="GUARDAR CAMBIOS"
+        android:layout_marginEnd="128dp"
+        android:drawableEnd="@drawable/baseline_check_circle_24"
+        android:drawableTint="#fff"
+        android:text="ㅤ"
         android:textSize="20sp"
-        app:icon="@drawable/save"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/b_editCorreoContra"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
     <Button
         android:id="@+id/b_editCorreoContra"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Correo/Contraseña"
+        android:layout_width="67dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="36dp"
+        android:text="ㅤ"
         android:textSize="16sp"
         app:icon="@drawable/editar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.171"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/b_guardarCambios" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

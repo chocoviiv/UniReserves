@@ -7,7 +7,11 @@
     android:layout_height="match_parent"
     android:id="@+id/drawerLayout"
     tools:context=".AboutActivity">
-
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/afon"
+        android:scaleType="fitXY" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,14 +19,19 @@
 
         <include
             android:layout="@layout/activity_toolbar"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Info"
             android:layout_gravity="center"
             android:layout_marginTop="400dp"
-            android:textColor="@color/yellow"
-            android:textSize="36sp"/>
+            android:fontFamily="@font/autour_one"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:text="UNIRESERVES: Está hecha con la finalidad de ayudar a optimizar los cruces de horarios en los locales de la UNC"
+            android:textColor="#EA4F44"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
     <RelativeLayout

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondograd"
     tools:context=".PerfilActivity">
 
     <include
@@ -49,9 +50,10 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                android:fontFamily="@font/autour_one"
                 android:gravity="center"
                 android:hint="Nombre de usuario"
-                android:textSize="34sp" />
+                android:textSize="24sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -65,9 +67,12 @@
                 android:layout_height="32dp"
                 android:layout_gravity="end"
                 android:layout_weight="1"
+                android:fontFamily="@font/andika_new_basic"
                 android:gravity="center_vertical|end"
                 android:text="Correo:"
-                android:textSize="18sp" />
+                android:textColor="@color/red"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_correo"
@@ -75,6 +80,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
                 android:layout_weight="1"
+                android:fontFamily="@font/atma_light"
                 android:gravity="center_vertical|start"
                 android:hint="Aqui va el correo"
                 android:paddingStart="16dp"
@@ -94,9 +100,12 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
                 android:layout_weight="1"
+                android:fontFamily="@font/andika_new_basic"
                 android:gravity="center_vertical|end"
                 android:text="Teléfono:"
-                android:textSize="18sp" />
+                android:textColor="@color/red"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_celular"
@@ -104,6 +113,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
                 android:layout_weight="1"
+                android:fontFamily="@font/atma_light"
                 android:gravity="center_vertical|start"
                 android:hint="Aqui va el número telefónico"
                 android:paddingStart="16dp"
@@ -122,9 +132,12 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
                 android:layout_weight="1"
+                android:fontFamily="@font/andika_new_basic"
                 android:gravity="center_vertical|end"
                 android:text="Dirección:"
-                android:textSize="18sp" />
+                android:textColor="@color/red"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_direccion"
@@ -132,6 +145,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
                 android:layout_weight="1"
+                android:fontFamily="@font/atma_light"
                 android:gravity="center_vertical|start"
                 android:hint="Aquí va la dirección"
                 android:paddingStart="16dp"
@@ -150,9 +164,12 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
                 android:layout_weight="1"
+                android:fontFamily="@font/andika_new_basic"
                 android:gravity="center_vertical|end"
                 android:text="Tipo:"
-                android:textSize="18sp" />
+                android:textColor="@color/red"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_tipo"
@@ -160,6 +177,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="start"
                 android:layout_weight="1"
+                android:fontFamily="@font/atma_light"
                 android:gravity="center_vertical|start"
                 android:hint="Tipo Usuario"
                 android:paddingStart="16dp"
@@ -171,8 +189,8 @@
 
     <Button
         android:id="@+id/bt_editarPerfil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="67dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:layout_weight="1"
@@ -180,7 +198,7 @@
         android:gravity="center"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:text="Editar Perfil"
+        android:text="Editar"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:icon="@drawable/editar"

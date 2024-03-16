@@ -1,125 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@drawable/drawer_border"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/drawer_border"
+    android:backgroundTint="#96A69E"
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="176dp"
-        android:orientation="vertical"
-        android:gravity="bottom"
-        android:padding="16dp"
         android:background="@drawable/header_bkg"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:padding="16dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
         <ImageView
             android:layout_width="135dp"
             android:layout_height="wrap_content"
             android:src="@drawable/logoreserva" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="UniReservr"
-            android:textStyle="bold"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:text="contact@PoderosoGrupo7.com"
             android:textColor="@color/white"
-            android:textSize="14sp"
-            android:layout_marginBottom="16dp"/>
+            android:textSize="14sp" />
 
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
         android:orientation="horizontal">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/blue"
-        android:text="Inicio"
-        android:textSize="20sp"
-        android:drawableLeft="@drawable/baseline_home_24"
-        android:drawablePadding="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/baseline_home_24"
+            android:drawablePadding="8dp"
+            android:text="Inicio"
+            android:textColor="@color/blue"
+            android:textSize="20sp" />
 
 
-</LinearLayout>
+    </LinearLayout>
+
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/blue"
-            android:text="Configuraciones"
-            android:textSize="20sp"
             android:drawableLeft="@drawable/baseline_settings_24"
-            android:drawablePadding="8dp"/>
-</LinearLayout>
+            android:drawablePadding="8dp"
+            android:text="Configuraciones"
+            android:textColor="@color/blue"
+            android:textSize="20sp" />
+    </LinearLayout>
+
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/share"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/blue"
-            android:text="Compartir"
-            android:textSize="20sp"
-            android:drawableLeft="@drawable/baseline_share_24"
-            android:drawablePadding="8dp"/>
-</LinearLayout>
-    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/about"
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/baseline_share_24"
+            android:drawablePadding="8dp"
+            android:text="Compartir"
             android:textColor="@color/blue"
-            android:text="About"
-            android:textSize="20sp"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:drawableLeft="@drawable/baseline_info_24"
-            android:drawablePadding="8dp"/>
-</LinearLayout>
+            android:drawablePadding="8dp"
+            android:text="Acerca de"
+            android:textColor="@color/blue"
+            android:textSize="20sp" />
+    </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="12dp"
-        android:background="@color/red"/>
+        android:background="@color/red" />
+
     <LinearLayout
+        android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/logout"
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/blue"
-            android:text="Salir"
-            android:textSize="20sp"
             android:drawableLeft="@drawable/baseline_exit_to_app_24"
-            android:drawablePadding="8dp"/>
+            android:drawablePadding="8dp"
+            android:text="Salir"
+            android:textColor="@color/blue"
+            android:textSize="20sp" />
     </LinearLayout>
 </LinearLayout>

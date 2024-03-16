@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondograd"
     tools:context=".ReservarActivity">
 
     <include
@@ -29,6 +30,7 @@
             android:id="@+id/textView7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/autour_one"
             android:text="RESERVAR-LOCAL"
             android:textAlignment="center"
             android:textColor="@color/red"
@@ -40,7 +42,8 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
-            android:backgroundTint="@color/green"
+            android:backgroundTint="#426265"
+            android:fontFamily="@font/andika_new_basic"
             android:text="Ingrese fecha de inicio"
             android:textColor="@color/black"
             android:textSize="18sp"
@@ -52,7 +55,7 @@
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
             android:ems="10"
-            android:hint="Fecha inicio"
+            android:hint="ㅤ"
             android:inputType="date" />
 
         <Button
@@ -60,7 +63,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:backgroundTint="@color/green"
+            android:backgroundTint="#426265"
+            android:fontFamily="@font/andika_new_basic"
             android:text="Fecha final"
             android:textColor="@color/black"
             android:textSize="18sp"
@@ -72,7 +76,7 @@
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
             android:ems="10"
-            android:hint="Fecha final"
+            android:hint="ㅤ"
             android:inputType="date" />
 
         <EditText
@@ -80,7 +84,8 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:ems="10"
-            android:hint="Descripcion"
+            android:fontFamily="@font/atma_light"
+            android:hint="Ingrese una descripcion corta"
             android:inputType="text" />
 
         <Button
@@ -88,9 +93,9 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
-            android:backgroundTint="@color/green"
+            android:fontFamily="@font/andika_new_basic"
             android:text="Hacer reserva"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>

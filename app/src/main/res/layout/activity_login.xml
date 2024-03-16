@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondograd"
     tools:context=".LoginActivity">
 
     <LinearLayout
@@ -21,10 +22,11 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="INIICIA SESIÓN O REGISTRATE"
+            android:fontFamily="@font/autour_one"
+            android:text="INICIA SESIÓN O REGISTRATE"
             android:textAlignment="center"
             android:textColor="@color/red"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <Space
@@ -48,6 +50,7 @@
                 android:layout_height="48dp"
                 android:layout_marginLeft="12dp"
                 android:ems="10"
+                android:fontFamily="@font/atma_light"
                 android:hint="Ingrese su correro"
                 android:inputType="textEmailAddress" />
 
@@ -73,30 +76,33 @@
                 android:layout_height="48dp"
                 android:layout_marginLeft="12dp"
                 android:ems="10"
+                android:fontFamily="@font/atma_light"
                 android:hint="Ingrese su contraseña"
                 android:inputType="textPassword" />
         </LinearLayout>
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_horizontal">
         <Button
             android:id="@+id/b_iniciarSesion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="173dp"
+            android:layout_height="62dp"
             android:backgroundTint="@color/blue"
+            android:fontFamily="@font/andika_new_basic"
             android:text="Iniciar Sesión"
             android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/b_registrarseLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/blue"
-            android:text="Registrarme"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/b_ir"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="INICIO" />
+    <Button
+        android:id="@+id/b_registrarseLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="62dp"
+        android:layout_marginStart="10dp"
+        android:backgroundTint="@color/blue"
+        android:fontFamily="@font/andika_new_basic"
+        android:text="Registrarme"
+        android:textSize="18sp" />
+</LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondograd"
     tools:context=".RegistrarActivity">
 
     <LinearLayout
@@ -21,6 +22,7 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/autour_one"
             android:text="Registrar Usuario"
             android:textAlignment="center"
             android:textColor="@color/red"
@@ -35,7 +37,9 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/andika_new_basic"
             android:text="Datos personales:"
+            android:textColor="@color/red"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -49,6 +53,7 @@
             android:layout_height="48dp"
             android:layout_marginBottom="8dp"
             android:ems="10"
+            android:fontFamily="@font/atma_light"
             android:hint="Ingrese sus nombres"
             android:inputType="text" />
 
@@ -58,6 +63,7 @@
             android:layout_height="48dp"
             android:layout_marginBottom="8dp"
             android:ems="10"
+            android:fontFamily="@font/atma_light"
             android:hint="Ingrese sus apellidos"
             android:inputType="text" />
 
@@ -67,6 +73,7 @@
             android:layout_height="48dp"
             android:layout_marginBottom="8dp"
             android:ems="10"
+            android:fontFamily="@font/atma_light"
             android:hint="Ingrese su N° de celular"
             android:inputType="phone" />
 
@@ -76,6 +83,7 @@
             android:layout_height="48dp"
             android:layout_marginBottom="8dp"
             android:ems="10"
+            android:fontFamily="@font/atma_light"
             android:hint="Ingrese su DNI"
             android:inputType="number" />
 
@@ -85,6 +93,7 @@
             android:layout_height="48dp"
             android:layout_marginBottom="8dp"
             android:ems="10"
+            android:fontFamily="@font/atma_light"
             android:hint="Ingrese su dirección"
             android:inputType="text" />
 
@@ -96,7 +105,9 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/andika_new_basic"
             android:text="Datos para la cuenta"
+            android:textColor="@color/red"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -110,6 +121,7 @@
             android:layout_height="48dp"
             android:layout_marginBottom="8dp"
             android:ems="10"
+            android:fontFamily="@font/atma_light"
             android:hint="Ingrese un correo"
             android:inputType="textEmailAddress" />
 
@@ -119,6 +131,7 @@
             android:layout_height="48dp"
             android:layout_marginBottom="8dp"
             android:ems="10"
+            android:fontFamily="@font/atma_light"
             android:hint="Ingrese su contraseña"
             android:inputType="textPassword" />
 
@@ -130,10 +143,5 @@
             android:text="REGISTRAR"
             android:textSize="16sp" />
 
-        <Button
-            android:id="@+id/b_irInicio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="INICIO" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
