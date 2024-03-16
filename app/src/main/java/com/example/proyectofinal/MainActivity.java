@@ -111,8 +111,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         bGeneral = findViewById(R.id.b_general);
         rvLocales = findViewById(R.id.rv_locales);
         svSearch = findViewById(R.id.svSearch);
-        localAdapter = new LocalAdapter(this, vmLocal);
-        rvLocales.setAdapter(localAdapter);
+
+
+
         if (inicioSesion()) {
             bPerfil.setText("Perfil");
         } else {
@@ -168,15 +169,15 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         });
 
         bGeneral.setOnClickListener(v -> {
-            auth.signOut();
+           /* auth.signOut();
             finish();
-            startActivity(new Intent(MainActivity.this, MainActivity.class));
-           /* adapter.clear();
+            startActivity(new Intent(MainActivity.this, MainActivity.class));*/
+            adapter.clear();
             adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, vmLocal.formatoCadenaLocales());
             spLocales.setAdapter(adapter);
             localAdapter = new LocalAdapter(this, vmLocal);
             rvLocales.setAdapter(localAdapter);
-            EjecutarBotonReserva();*/
+            EjecutarBotonReserva();
 
         });
 

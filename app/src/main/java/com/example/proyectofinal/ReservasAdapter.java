@@ -54,10 +54,14 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.ViewHo
     public void onBindViewHolder(@NonNull ReservasAdapter.ViewHolder holder, int position) {
         Reserva reserva = vmReserva.ObtenerReserva(position);
 
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+        String fechaInicio = sdf.format(reserva.getFechaInicio());
+        String fechaFin = sdf.format(reserva.getFechaFinal());
+
         holder.tvnombreReservado.setText(reserva.getLocalID().getNombre());
         holder.tvUbicacionReservada.setText(reserva.getLocalID().getUbicacion());
         holder.tvPrecioReserva.setText("s/. " + reserva.getCosto());
-        holder.tvFechaReservada.setText(reserva.getFechaInicio() + " hasta " + reserva.getFechaFinal());
+        holder.tvFechaReservada.setText(fechaInicio + " hasta " + fechaFin);
         holder.tvDescripcionR.setText(reserva.getDescripcionActi());
         holder.ivLocalReservado.setImageResource(DecodificarBytesToInt(reserva.getLocalID().getImagen()));
 
@@ -106,6 +110,4 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.ViewHo
 
         }
     }
-
-
 }
