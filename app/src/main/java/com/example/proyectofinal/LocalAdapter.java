@@ -1,6 +1,8 @@
 package com.example.proyectofinal;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -11,7 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -78,9 +84,59 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.ViewHolder> 
         holder.bReservar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onLocalClickListener.OnLocalClick(local, 1);
+                boolean usuarioRegistrado = verificarUsuarioRegistrado();
+                if(usuarioRegistrado) {
+                    onLocalClickListener.OnLocalClick(local, 1);
+                } else {
+                    mostrarVentanaRegistro();
+                }
             }
         });
+    }
+
+    private void mostrarDialogoRegistro() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Para reservar, primero debes iniciar sesión o registrarte.");
+        builder.setPositiveButton("Registrarme", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(context, RegistrarActivity.class);
+                 context.startActivity(intent);
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private boolean verificarUsuarioRegistrado() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        return user != null;
+    }
+
+    private void mostrarVentanaRegistro() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Para reservar, primero debes iniciar sesión o registrarte.")
+                .setPositiveButton("Registrarse", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Abrir actividad de registro
+                        Intent intent = new Intent(context, RegistrarActivity.class);
+                        context.startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // No hacer nada, simplemente cerrar el diálogo
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override

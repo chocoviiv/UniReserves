@@ -125,7 +125,7 @@ public class ReservarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (etFechaIni.getText().toString().isEmpty() || etFechaFin.getText().toString().isEmpty() || etDescripcion.getText().toString().isEmpty()) {
-                    Toast.makeText(ReservarActivity.this, "Llene las fechas", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ReservarActivity.this, "Llene los datos de su reserva", Toast.LENGTH_SHORT).show();
                 } else {
                     AgregarReserva();
                 }

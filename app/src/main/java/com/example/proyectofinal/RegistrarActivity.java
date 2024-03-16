@@ -28,7 +28,7 @@ import VistaModelo.VMCliente;
 
 public class RegistrarActivity extends AppCompatActivity {
     EditText etNombres, etApellidos, etCelular, etDni, etDireccion, etCorreo, etContraseña;
-    Button bRegistrar, bIrInicio;
+    Button bRegistrar;
     FirebaseAuth mAuth;
     FirebaseFirestore firebaseFirestore;
 
@@ -55,13 +55,23 @@ public class RegistrarActivity extends AppCompatActivity {
         bRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RegistrarUsuario();
-            }
-        });
+                String nombres = etNombres.getText().toString();
+                String apellidos = etApellidos.getText().toString();
+                String celular = etCelular.getText().toString();
+                String dni = etDni.getText().toString();
+                String direccion = etDireccion.getText().toString();
+                String correo = etCorreo.getText().toString().trim();
+                String contraseña = etContraseña.getText().toString().trim();
 
-        bIrInicio.setOnClickListener(v -> {
-            Intent intent = new Intent(RegistrarActivity.this, MainActivity.class);
-            startActivity(intent);
+                // Verificar si algún campo está vacío
+                if (nombres.isEmpty() || apellidos.isEmpty() || celular.isEmpty() || dni.isEmpty() || direccion.isEmpty() || correo.isEmpty() || contraseña.isEmpty()) {
+                   Toast.makeText(RegistrarActivity.this, "Llene todos los campos", Toast.LENGTH_SHORT).show();
+                } else {
+                    RegistrarUsuario();
+                    Intent intent = new Intent(RegistrarActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+            }
         });
     }
 
@@ -100,9 +110,14 @@ public class RegistrarActivity extends AppCompatActivity {
                                 public void onSuccess(Void unused) {
                                     finish();
                                     Cliente cliente = new Cliente(nombres, apellidos, celular, dni, direccion, correo, contraseña);
+                                    cliente.setId(id);
+                                    cliente.setTipo(tipo);
                                     vmCliente = new VMCliente();
                                     if (vmCliente.AgregarCliente(RegistrarActivity.this, cliente)) {
-                                        startActivity(new Intent(RegistrarActivity.this, MainActivity.class));
+                                        // Pasar datos del cliente a PerfilActivity
+                                        Intent intent = new Intent(RegistrarActivity.this, PerfilActivity.class);
+                                        intent.putExtra("cliente", cliente);
+                                        startActivity(intent);
                                         Toast.makeText(RegistrarActivity.this, "Usuario registrado con éxito", Toast.LENGTH_SHORT).show();
                                     } else {
                                         Toast.makeText(RegistrarActivity.this, "Error al registrar en SQLite", Toast.LENGTH_SHORT).show();
@@ -128,6 +143,7 @@ public class RegistrarActivity extends AppCompatActivity {
             });
         }
     }
+
 
     public String esUnc(String correo) {
         if (correo.matches(".*@unc\\.edu\\.pe")) {

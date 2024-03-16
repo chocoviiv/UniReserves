@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginActivity extends AppCompatActivity {
 
     EditText etCorreoLogin, etContraseñalogin;
-    Button bIniciarSesion, bRegistrarseLogin, bIr;
+    Button bIniciarSesion, bRegistrarseLogin;
     FirebaseAuth mAuth;
 
     @Override
@@ -49,13 +49,6 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(this, RegistrarActivity.class));
         });
 
-        bIr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            }
-        });
-
     }
 
     private void IniciarSesion(String correo, String contraseña) {
@@ -80,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     //si hay un usuario que a iniciado sesión, entonces ya es necesario que entre a Login
-   /* @Override
+   @Override
     protected void onStart() {
         super.onStart();
         FirebaseUser user = mAuth.getCurrentUser();//Para ver si hay una sesión iniciada
@@ -88,6 +81,5 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
-    }*/
-
+    }
 }
