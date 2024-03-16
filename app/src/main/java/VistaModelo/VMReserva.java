@@ -127,4 +127,9 @@ public class VMReserva {
         return listaReservas.size();
     }
 
+    public void eliminarReserva(Reserva reserva) {
+        if(listaReservas!= null && listaReservas.contains(reserva)){
+            listaReservas.remove(reserva);
+        }
+    }
 }

@@ -26,7 +26,7 @@ import Modelo.Cliente;
 import VistaModelo.VMCliente;
 
 public class PerfilActivity extends AppCompatActivity {
-    Button binicio, bReservas, bPerfil, bEditarPerfil;
+    Button binicio, bReservas, bPerfil, bEditarPerfil, bCerrarSesion;
     ImageView ivImagenUsuario;
     TextView tvNombreUsuario, tvCorreo, tvCelular, tvDireccion, tvTipo;
     FirebaseAuth auth;
@@ -69,6 +69,7 @@ public class PerfilActivity extends AppCompatActivity {
         binicio = findViewById(R.id.b_inicioPerfil);
         bReservas = findViewById(R.id.b_reservasPerfil);
         bPerfil = findViewById(R.id.b_perfilPerfil);
+        bCerrarSesion = findViewById(R.id.b_cerrarSesion);
         bEditarPerfil = findViewById(R.id.bt_editarPerfil);
 
         if (user != null) {
@@ -149,7 +150,20 @@ public class PerfilActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        bCerrarSesion.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cerrarSesion();
+            }
+        }));
 
+    }
+
+    private void cerrarSesion() {
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private Bitmap decodificarByteBitMap(byte[] imagen) {

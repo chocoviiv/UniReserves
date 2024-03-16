@@ -67,6 +67,14 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.ViewHo
                 onReservaClickListener.onReservaClick(reserva, 1);
             }
         });
+        holder.bEliminarReserva.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onReservaClickListener!= null){
+                    onReservaClickListener.onReservaClick(reserva, 2);
+                }
+            }
+        });
     }
 
     @Override
@@ -83,7 +91,7 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvnombreReservado, tvUbicacionReservada, tvPrecioReserva, tvFechaReservada, tvDescripcionR;
         ImageView ivLocalReservado;
-        Button bModificarReserva;
+        Button bModificarReserva, bEliminarReserva;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -94,6 +102,7 @@ public class ReservasAdapter extends RecyclerView.Adapter<ReservasAdapter.ViewHo
             tvDescripcionR = itemView.findViewById(R.id.tv_descripcionR);
             ivLocalReservado = itemView.findViewById(R.id.iv_localReservado);
             bModificarReserva = itemView.findViewById(R.id.b_modificarReser);
+            bEliminarReserva = itemView.findViewById(R.id.b_eliminarReserva);
 
         }
     }

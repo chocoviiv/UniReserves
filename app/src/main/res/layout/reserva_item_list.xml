@@ -60,13 +60,28 @@
             android:text="[Descripcion]"
             android:textColor="@color/black"
             android:textSize="16sp" />
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_horizontal">
         <Button
             android:id="@+id/b_modificarReser"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_marginBottom="4dp"
-            android:text="Modificar Reserva" />
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginBottom="10dp"
+            android:drawableEnd="@drawable/baseline_edit_24"
+            android:drawableTint="#fff"
+            android:text="ㅤ"/>
+        <Button
+            android:id="@+id/b_eliminarReserva"
+            android:layout_width="67dp"
+            android:layout_height="67dp"
+            android:layout_marginBottom="15dp"
+            android:drawableEnd="@drawable/baseline_delete_24"
+            android:drawableTint="#fff"
+            android:text="ㅤ"/>
+</LinearLayout>
 
     </LinearLayout>
 

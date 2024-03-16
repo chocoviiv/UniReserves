@@ -13,6 +13,7 @@ import android.widget.Button;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import Modelo.Reserva;
 import VistaModelo.VMReserva;
 
 public class ReservasActivity extends AppCompatActivity {
@@ -57,6 +58,15 @@ public class ReservasActivity extends AppCompatActivity {
 
         ReservasAdapter reservasAdapter = new ReservasAdapter(ReservasActivity.this, vmReserva);
         rvListadoReservas.setAdapter(reservasAdapter);
+        reservasAdapter.setOnReservaClickListener(new ReservasAdapter.OnReservaClickListener() {
+            @Override
+            public void onReservaClick(Reserva reserva, int llamada) {
+                if(llamada ==2){
+                    vmReserva.eliminarReserva(reserva);
+                    reservasAdapter.notifyDataSetChanged();
+                }
+            }
+        });
 
         if (inicioSesion()) {
             bPerfil.setText("Perfil");
