@@ -94,6 +94,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                auth.signOut();
+                finish();
+                startActivity(new Intent(MainActivity.this, MainActivity.class));
                 Toast.makeText(MainActivity.this, "Logout", Toast.LENGTH_SHORT).show();
             }
         });
@@ -266,12 +269,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     }
 
     public boolean onQueryTextChange(String newText) {
-        ArrayList<Local> localesFiltrados = vmLocal.obtenerLocales(newText);
-        if (localesFiltrados != null) {
-            localAdapter.setLocales(localesFiltrados);
-            localAdapter.notifyDataSetChanged();
-        }
-        return true;
+        localAdapter.filtrado(newText);
+        return false;
     }
-
 }

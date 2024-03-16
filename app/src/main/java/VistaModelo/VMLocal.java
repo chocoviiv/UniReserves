@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import Modelo.Local;
 
 public class VMLocal {
-    private ArrayList<Local> listaLocales;
+    public ArrayList<Local> listaLocales;
     private ArrayList<Local> localesEspecificos;
     String nombreBD;
     int version;
