@@ -217,6 +217,7 @@ public class VMLocal {
     }
 
     public ArrayList<Local> ListasE() {
+        CargarLista();
         return this.localesEspecificos;
     }
 
