@@ -7,7 +7,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import androidx.appcompat.widget.SearchView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,10 +17,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SearchView;
+
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -42,24 +43,26 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     FirebaseUser user;
     DrawerLayout drawerLayout;
     ImageView menu;
-    LinearLayout home, settings, share,about,logout;
+    LinearLayout home, settings, share, about, logout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FirebaseApp.initializeApp(this);
         //toolBar
         //Toolbar toolbar = findViewById(R.id.toolbar);
         //toolbar.setTitle("Reserva LocalesUNC");
         //setSupportActionBar(toolbar);
 
         drawerLayout = findViewById(R.id.drawerLayout);
-        menu=findViewById(R.id.menu);
-        home=findViewById(R.id.home);
-        about=findViewById(R.id.about);
-        logout=findViewById(R.id.logout);
-        settings=findViewById(R.id.settings);
-        share=findViewById(R.id.share);
-        svSearch= findViewById(R.id.svSearch);
+        menu = findViewById(R.id.menu);
+        home = findViewById(R.id.home);
+        about = findViewById(R.id.about);
+        logout = findViewById(R.id.logout);
+        settings = findViewById(R.id.settings);
+        share = findViewById(R.id.share);
+        svSearch = findViewById(R.id.svSearch);
         svSearch.setOnQueryTextListener(this);
         vmLocal = new VMLocal(this);
         menu.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         bDeportes = findViewById(R.id.b_deportes);
         bGeneral = findViewById(R.id.b_general);
         rvLocales = findViewById(R.id.rv_locales);
-        svSearch= findViewById(R.id.svSearch);
+        svSearch = findViewById(R.id.svSearch);
         localAdapter = new LocalAdapter(this, vmLocal);
         rvLocales.setAdapter(localAdapter);
         if (inicioSesion()) {
@@ -223,15 +226,18 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         }
         return false;
     }
-    public static void openDrawer(DrawerLayout drawerLayout){
+
+    public static void openDrawer(DrawerLayout drawerLayout) {
         drawerLayout.openDrawer(GravityCompat.START);
     }
-    public static void  closeDrawer (DrawerLayout drawerLayout){
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+
+    public static void closeDrawer(DrawerLayout drawerLayout) {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         }
     }
-    public static void redirectActivity(Activity activity, Class secondActivity){
+
+    public static void redirectActivity(Activity activity, Class secondActivity) {
         Intent intent = new Intent(activity, secondActivity);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);
@@ -256,11 +262,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         });
     }
 
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
     public boolean onQueryTextChange(String newText) {
         ArrayList<Local> localesFiltrados = vmLocal.obtenerLocales(newText);
         if (localesFiltrados != null) {
@@ -270,4 +271,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         return true;
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        // No es necesario realizar ninguna acción específica al enviar el texto de búsqueda
+        return false;
+    }
 }
