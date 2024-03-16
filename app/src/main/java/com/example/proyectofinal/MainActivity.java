@@ -1,13 +1,12 @@
 package com.example.proyectofinal;
 
-import
-        androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.SearchView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,11 +16,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -31,7 +28,7 @@ import Modelo.Local;
 import VistaModelo.VMLocal;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
-    private SearchView svSearch;
+    SearchView svSearch;
     Button binicio, bReservas, bPerfil, bEventos, bConferencias, bDeportes, bGeneral;
     Spinner spLocales;
     public VMLocal vmLocal;
@@ -49,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FirebaseApp.initializeApp(this);
         //toolBar
         //Toolbar toolbar = findViewById(R.id.toolbar);
         //toolbar.setTitle("Reserva LocalesUNC");
@@ -130,8 +126,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String localSeleccionado = (String) parent.getItemAtPosition(position);
-
-
             }
 
             @Override
@@ -174,12 +168,15 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         });
 
         bGeneral.setOnClickListener(v -> {
-            adapter.clear();
+            auth.signOut();
+            finish();
+            startActivity(new Intent(MainActivity.this, MainActivity.class));
+           /* adapter.clear();
             adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, vmLocal.formatoCadenaLocales());
             spLocales.setAdapter(adapter);
             localAdapter = new LocalAdapter(this, vmLocal);
             rvLocales.setAdapter(localAdapter);
-            EjecutarBotonReserva();
+            EjecutarBotonReserva();*/
 
         });
 
@@ -262,6 +259,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         });
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
     public boolean onQueryTextChange(String newText) {
         ArrayList<Local> localesFiltrados = vmLocal.obtenerLocales(newText);
         if (localesFiltrados != null) {
@@ -271,9 +273,4 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         return true;
     }
 
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        // No es necesario realizar ninguna acción específica al enviar el texto de búsqueda
-        return false;
-    }
 }
