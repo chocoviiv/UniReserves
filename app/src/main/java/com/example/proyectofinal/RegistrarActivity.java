@@ -50,7 +50,7 @@ public class RegistrarActivity extends AppCompatActivity {
         etContraseña = findViewById(R.id.et_contraseña);
 
         bRegistrar = findViewById(R.id.b_registrar);
-        bIrInicio = findViewById(R.id.b_irInicio);
+        //bIrInicio = findViewById(R.id.b_irInicio);
 
         bRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override

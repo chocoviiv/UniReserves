@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         etContraseñalogin = findViewById(R.id.et_contraseñaLogin);
         bIniciarSesion = findViewById(R.id.b_iniciarSesion);
         bRegistrarseLogin = findViewById(R.id.b_registrarseLogin);
-        bIr = findViewById(R.id.b_ir);
+        //bIr = findViewById(R.id.b_ir);
 
         bIniciarSesion.setOnClickListener(v -> {
             String correo = etCorreoLogin.getText().toString();
